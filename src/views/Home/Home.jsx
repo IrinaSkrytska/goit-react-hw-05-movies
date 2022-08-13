@@ -13,6 +13,7 @@ export default function Home() {
 
   return (
     <>
+      <hr />
       <PageHeading text={'Trending Movies'} />
       {movies && (
         <>

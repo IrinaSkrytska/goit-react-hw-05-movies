@@ -10,8 +10,11 @@ export default function Reviews({ movieId }) {
   }, [movieId]);
   return (
     <>
+      <hr />
       {!review || review.length === 0 ? (
-        <p>We don't have any reviews for this movie</p>
+        <p>
+          There are no reviews yet. Become the first, who will write a review!
+        </p>
       ) : (
         review.map(el => {
           return (

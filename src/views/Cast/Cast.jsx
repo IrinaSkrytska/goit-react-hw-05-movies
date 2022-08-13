@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import * as getCastAPI from 'services/movies-api';
+import css from './Cast.module.css';
 
 export default function Cast({ movieId }) {
   const [cast, setCast] = useState(null);
@@ -9,7 +10,8 @@ export default function Cast({ movieId }) {
     getCastAPI.getMovieCast(movieId).then(setCast);
   }, [movieId]);
   return (
-    <>
+    <div className={css.cast_thumb}>
+      <hr />
       {!cast ||
         (cast.length === 0 ? (
           <p>We don't have a cast for this movie</p>
@@ -20,7 +22,11 @@ export default function Cast({ movieId }) {
                 {e.castMemberPhoto.includes('w500/null') ? (
                   <div></div>
                 ) : (
-                  <img src={e.castMemberPhoto} alt={e.name} />
+                  <img
+                    src={e.castMemberPhoto}
+                    alt={e.name}
+                    className={css.image}
+                  />
                 )}
                 <h5>{e.name}</h5>
                 <p>{e.character}</p>
@@ -28,7 +34,7 @@ export default function Cast({ movieId }) {
             );
           })
         ))}
-    </>
+    </div>
   );
 }
 
