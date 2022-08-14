@@ -1,4 +1,4 @@
-const axios = require('axios').default;
+import axios from 'axios';
 
 const KEY = 'e1127228e5b086ad27f085a5b4b021d7';
 const BASE_URL = 'https://api.themoviedb.org/3/';
