@@ -24,7 +24,7 @@ export async function getPopularMovies() {
 export async function searchMovies(query) {
   try {
     const request = await axios.get(
-      `${BASE_URL}search/movie/?api_key=${KEY}&language=en-US&query=${query}&page=1&include_adult=true`
+      `${BASE_URL}search/movie?api_key=${KEY}&language=en-US&query=${query}&page=1&include_adult=true`
     );
     const detailedRequest = request.data.results.map(e => {
       return {
