@@ -24,7 +24,7 @@ export async function getPopularMovies() {
 export async function searchMovies(query) {
   try {
     const request = await axios.get(
-      `https://api.themoviedb.org/3/search/movie?api_key=${KEY}&language=en-US&query=${query}&page=1&include_adult=true`
+      `${BASE_URL}search/movie?api_key=${KEY}&language=en-US&query=${query}&page=1&include_adult=true`
     );
     const detailedRequest = request.data.results.map(e => {
       return {
@@ -45,7 +45,7 @@ export async function getMovieDetails(movieId) {
     );
     const detailedRequest = [request.data].map(e => {
       return {
-        poster: `https://themoviedb.org/t/p/w500/${e.poster_path}`,
+        poster: `https://image.tmdb.org/t/p/w500/${e.poster_path}`,
         tag: e.tagline,
         movieName: e.original_title,
         userScore: e.vote_average,
