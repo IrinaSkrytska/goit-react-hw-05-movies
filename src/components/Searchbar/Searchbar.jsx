@@ -29,7 +29,7 @@ export default function Searchbar({ handleMoviesSubmit }) {
         placeholder="Search movies"
         value={movie}
         onChange={handleSearchRequest}
-      ></input>
+      />
       <button type="submit">
         <span>Search</span>
       </button>

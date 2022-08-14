@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect, lazy } from 'react';
 import {
   NavLink,
   Route,
@@ -52,29 +52,15 @@ export default function MovieDetails() {
       <div>
         <ul className={css.links}>
           <li>
-            <NavLink to={`cast?search=${searchQuery}`}>Cast</NavLink>
+            <NavLink to={`cast`}>Cast</NavLink>
           </li>
           <li>
-            <NavLink to={`reviews?search=${searchQuery}`}>Reviews</NavLink>
+            <NavLink to={`reviews`}>Reviews</NavLink>
           </li>
         </ul>
         <Routes>
-          <Route
-            path="cast"
-            element={
-              <Suspense fallback={<div>Loading....</div>}>
-                <Cast movieId={movieId} />
-              </Suspense>
-            }
-          ></Route>
-          <Route
-            path="reviews"
-            element={
-              <Suspense fallback={<div>Loading....</div>}>
-                <Reviews movieId={movieId} />
-              </Suspense>
-            }
-          ></Route>
+          <Route path="cast" element={<Cast movieId={movieId} />}></Route>
+          <Route path="reviews" element={<Reviews movieId={movieId} />}></Route>
         </Routes>
       </div>
     </div>

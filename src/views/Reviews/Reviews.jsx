@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import * as getReviewAPI from 'services/movies-api';
 
 export default function Reviews({ movieId }) {
-  const [review, setReview] = useState(null);
+  const [review, setReview] = useState('');
 
   useEffect(() => {
     getReviewAPI.getMoviesReviews(movieId).then(setReview);
