@@ -28,7 +28,7 @@ export default function Movie() {
           <ul>
             {moviesGallery.map(e => (
               <li key={e.id}>
-                <Link to={{ pathname: `/movies/${e.id}?search=${movie}` }}>
+                <Link to={`/movies/${e.id}?search=${movie}`}>
                   {e.movieName}
                 </Link>
               </li>
