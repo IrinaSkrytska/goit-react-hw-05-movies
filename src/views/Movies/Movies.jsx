@@ -21,7 +21,9 @@ export default function Movie() {
       const fetchedMovies = await searchMoviesAPI.searchMovies(query);
       setMoviesGallery(fetchedMovies);
     }
+
     fetchMovies();
+    
   }, [query]);
 
   const handleMoviesSubmit = queryMessage => {
