@@ -1,28 +1,32 @@
-import { useState, useEffect, lazy } from 'react';
+import { useState, useEffect } from 'react';
 import {
   NavLink,
-  Route,
-  Routes,
   useParams,
   useLocation,
+  useNavigate,
   Link,
+  Outlet,
 } from 'react-router-dom';
 import * as getMovieDetailsAPI from 'services/movies-api';
 import css from './MovieDetails.module.css';
 
-const Cast = lazy(() => import('../Cast'));
-const Reviews = lazy(() => import('../Reviews'));
-
 export default function MovieDetails() {
-  const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const { movieId } = useParams();
+  const navigate = useNavigate();
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
 
   useEffect(() => {
-    getMovieDetailsAPI.getMovieDetails(movieId).then(setMovie);
-  }, [movieId]);
+    getMovieDetailsAPI
+      .getMovieDetails(movieId)
+      .then(setMovie)
+      .catch(error => {
+        navigate('/', { replace: true });
+        console.error(error);
+      });
+  }, [movieId, navigate]);
 
   const searchQuery = searchParams.get('search' ?? '');
 
@@ -52,16 +56,13 @@ export default function MovieDetails() {
       <div>
         <ul className={css.links}>
           <li>
-            <NavLink to={`cast`}>Cast</NavLink>
+            <NavLink to="cast">Cast</NavLink>
           </li>
           <li>
-            <NavLink to={`reviews`}>Reviews</NavLink>
+            <NavLink to="reviews">Reviews</NavLink>
           </li>
         </ul>
-        <Routes>
-          <Route path="cast" element={<Cast movieId={movieId} />}></Route>
-          <Route path="reviews" element={<Reviews movieId={movieId} />}></Route>
-        </Routes>
+        <Outlet />
       </div>
     </div>
   );

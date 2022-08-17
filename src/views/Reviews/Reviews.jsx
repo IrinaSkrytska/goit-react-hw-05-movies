@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import * as getReviewAPI from 'services/movies-api';
+import { useParams } from 'react-router-dom';
 
-export default function Reviews({ movieId }) {
+export default function Reviews() {
   const [review, setReview] = useState('');
+  const { movieId } = useParams();
 
   useEffect(() => {
     getReviewAPI.getMoviesReviews(movieId).then(setReview);
@@ -28,7 +29,3 @@ export default function Reviews({ movieId }) {
     </>
   );
 }
-
-Reviews.propTypes = {
-  movieId: PropTypes.string.isRequired,
-};
