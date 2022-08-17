@@ -2,24 +2,32 @@ import { useState, useEffect } from 'react';
 import * as searchMoviesAPI from 'services/movies-api';
 import { Link, useLocation } from 'react-router-dom';
 import Searchbar from 'components/Searchbar';
+import { useSearchParams } from 'react-router-dom';
 
 export default function Movie() {
   const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const [movie, setMovie] = useState(searchParams.get('search' ?? ''));
   const [moviesGallery, setMoviesGallery] = useState([]);
-
-  const handleMoviesSubmit = movie => {
-    setMovie(movie);
-    setMoviesGallery([]);
-  };
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('query');
 
   useEffect(() => {
-    if (!movie) {
+    // searchMoviesAPI.searchMovies(query).then(setMoviesGallery);
+
+    if (!query) {
       return;
     }
-    searchMoviesAPI.searchMovies(movie).then(setMoviesGallery);
-  }, [movie]);
+
+    async function fetchMovies() {
+      const fetchedMovies = await searchMoviesAPI.searchMovies(query);
+      setMoviesGallery(fetchedMovies);
+    }
+    fetchMovies();
+  }, [query]);
+
+  const handleMoviesSubmit = queryMessage => {
+    setSearchParams({ query: queryMessage });
+  };
+
   return (
     <>
       <Searchbar handleMoviesSubmit={handleMoviesSubmit} />
@@ -28,10 +36,7 @@ export default function Movie() {
           <ul>
             {moviesGallery.map(e => (
               <li key={e.id}>
-                <Link
-                  to={{ pathname: `/movies/${e.id}?search=${movie}` }}
-                  state={{ from: location }}
-                >
+                <Link to={`/movies/${e.id}`} state={{ from: location }}>
                   {e.movieName}
                 </Link>
               </li>

@@ -16,7 +16,7 @@ export default function MovieDetails() {
   const navigate = useNavigate();
 
   const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
+  // const searchParams = new URLSearchParams(location.search);
 
   useEffect(() => {
     getMovieDetailsAPI
@@ -28,14 +28,12 @@ export default function MovieDetails() {
       });
   }, [movieId, navigate]);
 
-  const searchQuery = searchParams.get('search' ?? '');
+  // const searchQuery = searchParams.get('search' ?? '');
+  const goBackLink = location?.state?.from ?? `/`;
 
   return (
     <div>
-      <Link
-        to={searchQuery ? `/movies?search=${searchQuery}` : '/'}
-        className={css.goBack_link}
-      >
+      <Link to={goBackLink} className={css.goBack_link}>
         &#8592; Go Back
       </Link>
       {movie && (
@@ -56,10 +54,14 @@ export default function MovieDetails() {
       <div>
         <ul className={css.links}>
           <li>
-            <NavLink to="cast">Cast</NavLink>
+            <NavLink to="cast" state={{ from: location?.state?.from }}>
+              Cast
+            </NavLink>
           </li>
           <li>
-            <NavLink to="reviews">Reviews</NavLink>
+            <NavLink to="reviews" state={{ from: location?.state?.from }}>
+              Reviews
+            </NavLink>
           </li>
         </ul>
         <Outlet />
