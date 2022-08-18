@@ -5,7 +5,7 @@ import Appbar from './Appbar';
 const Home = lazy(() => import('../views/Home'));
 const Movies = lazy(() => import('../views/Movies'));
 const MovieDetails = lazy(() => import('../views/MovieDetails'));
-// const NotFoundPage = lazy(() => import('../views/NotFoundPage'));
+const NotFoundPage = lazy(() => import('../views/NotFoundPage'));
 const Cast = lazy(() => import('../views/Cast'));
 const Reviews = lazy(() => import('../views/Reviews'));
 
@@ -21,7 +21,7 @@ export const App = () => {
           <Route path="reviews" element={<Reviews />} />
         </Route>
 
-        {/* <Route path="*" element={<NotFoundPage />} /> */}
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   );

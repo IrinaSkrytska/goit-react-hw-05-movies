@@ -23,7 +23,6 @@ export default function Movie() {
     }
 
     fetchMovies();
-    
   }, [query]);
 
   const handleMoviesSubmit = queryMessage => {
